@@ -1,0 +1,451 @@
+/* TYPE
+_______________________________________________________________________________________________*/
+
+/* 								1.	GLOABL
+									==========================================================
+
+								2.	FONT REPLACEMENT
+									==========================================================
+
+								3.	TEXT STYLES/COLOURS
+									==========================================================
+
+								4.	LINKS
+									==========================================================
+
+								5.	HEADINGS
+									==========================================================
+
+								6.	PARAGRAPHS
+									==========================================================
+
+								7.	UNORDERED LISTS
+									==========================================================
+
+								8.	ORDERED LISTS
+									==========================================================
+
+								9.	BUTTONS
+									==========================================================
+
+								10.	FORM TEXT
+									==========================================================
+
+/* 1 .GLOBAL
+===============================================================================================*/
+body {
+	color: #777777;
+	font-family: 'GillSansRegular', Helvetica, Arial, sans-serif;
+	font-size: 130%;
+	text-align: center;
+}
+#container {
+	text-align: left;
+}
+#container #logo img {
+	color: #e10032;
+	font-family: 'yakultregular', Impact, Helvetica, Arial, sans-serif;
+	font-size: 4em;
+	line-height: 0.8em;
+}
+/* Define top padding of elements that directly follow box headings (i.e. elements following grey bg headings should have more padding) */
+h2 + .section > *:first-child {
+	padding-top:0.4em;
+}
+.section > *:first-child,
+h2.grey + .section > *:first-child,
+.right h2.grey + .section > .img-holder:first-child + * {
+	padding-top:1.3em;
+}
+h2.grey + .section > .img-holder:first-child, .section > .img-holder:first-child {
+	padding-top:0;
+}
+/* 2. FONT REPLACEMENT
+===============================================================================================*/
+/* YAKULT */
+@font-face {
+	font-family: 'yakultregular';
+	src: url('../fonts/yakult-webfont.woff2') format('woff2'),
+	url('../fonts/yakult-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+    font-family: 'YakultHeadlineRegular';
+    src: url('../fonts/yakult-headline-webfont.eot');
+    src: url('../fonts/yakult-headline-webfont_1.eot') format('eot'),
+         url('../fonts/yakult-headline-webfont.woff') format('woff'),
+         url('../fonts/yakult-headline-webfont.ttf') format('truetype'),
+         url('../fonts/yakult-headline-webfont.svg#webfont9ImlKYf3') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/* GILL SANS */
+@font-face {
+    font-family: 'GillSansRegular';
+    src: url('../fonts/gillsans-webfont.eot');
+    src: url('../fonts/gillsans-webfont_1.eot') format('eot'),
+         url('../fonts/gillsans-webfont.woff') format('woff'),
+         url('../fonts/gillsans-webfont.ttf') format('truetype'),
+         url('../fonts/gillsans-webfont.svg#webfont6FA00F7g') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/* FUTURA MEDIUM */
+@font-face {
+    font-family: 'FuturaMdMedium';
+    src: url('../fonts/futura_medium-webfont.eot');
+    src: url('../fonts/futura_medium-webfont.eot#iefix') format('eot'),
+         url('../fonts/futura_medium-webfont.woff') format('woff'),
+         url('../fonts/futura_medium-webfont.ttf') format('truetype'),
+         url('../fonts/futura_medium-webfont.svg#webfontjIfV5lCI') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 3. TEXT STYLE/COLOUR CLASSES
+===============================================================================================*/
+.red {
+	color: #e10032;
+}
+.grey {
+	color: #777777;
+}
+
+.blueText {
+	color: #74c0e8;
+}
+.article .yakult-font, .aside .yakult-font {
+	font-family: 'yakultregular', Helvetica, Arial, sans-serif;
+	color: #e10032;
+	font-size:1.6em;
+	text-transform:none;
+}
+.article .yakult-font-sml, .aside .yakult-font-sml {
+	font-family: 'yakultregular', Helvetica, Arial, sans-serif;
+	color: #e10032;
+	font-size:1.1em;
+	text-transform:none;
+}
+
+/* 4. LINKS
+===============================================================================================*/
+.accordion h3 a, .aside .nav a, .aside-btn a, button {
+	color: #111;
+}
+a {
+	color: #e10032;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+a.grey-underline {
+	color: #777777;
+	text-decoration:underline;
+}
+.section ul li a {
+	font-size: 14px;
+	font-weight:bold;
+}
+.section ul li ul li ul li ul li a {
+	/* SPECIFICALLY FOR RECIPE LIBRARY ON SITE MAP */
+	font-size: 12px;
+	font-weight: normal;
+}
+
+/* NAVIGATION */
+#header .nav a, .footer .nav a, .aside .nav a, .aside-btn a {
+	font-family: 'GillSansRegular', Helvetica, Arial, sans-serif;
+}
+/* BREADCRUMB */
+.level-3 #content .breadcrumb ul li, .level-5 #content .breadcrumb ul li {
+	color: #e10032;
+	font-family: 'GillSansRegular', Helvetica, Arial, sans-serif;
+	font-size: 1.25em;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.level-3 #content .breadcrumb ul li a, .level-5 #content .breadcrumb ul li a {
+	color: #e10032;
+	text-decoration: none;
+}
+/* ASIDE NAV */
+.aside .nav ul li a {
+	font-size: 0.8em;
+	text-decoration: none;
+}
+
+.level-3 .aside .nav ul li a, .level-5 .aside .nav ul li a {
+	min-height: 1.5em;
+}
+
+/* TABS NAV */
+.tabs ul li a {
+	color: #FFFFFF;
+	font-family: 'GillSansRegular', Helvetica, Arial, sans-serif;
+	font-size: 0.8em;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.tabs ul li a.blue, .tabs ul li a.ireland {
+	font-size: 0.6em;
+}
+/* SEARCH RESULTS */
+.results p a {
+	color: #999999;
+	font-size: 0.85em;
+	font-weight: bold;
+	text-decoration: underline;
+}
+.results p a:hover {
+	color: #777777;
+}
+/* FOOTER NAV */
+.footer .nav a, .footer .nav li {
+	color: #777;
+}
+
+/* 5. HEADINGS
+===============================================================================================*/
+.level-2 #content .hgroup h1, .level-3 #content .hgroup h1, .level-4 #content .hgroup h1, .level-5 #content .hgroup h1 {
+	color: #e10032;
+	font-family: 'GillSansRegular', Helvetica, Arial, sans-serif;
+	font-size: 1.25em;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.article h2, .aside h2 {
+	color: #a2a2a2;
+	font-family: 'GillSansRegular', Helvetica, Arial, sans-serif;
+	font-size: 1.05em;
+	font-weight: bold;
+}
+.article h2.grey, .aside h2.grey {
+	color: #ffffff;
+}
+.primary .hgroup p {
+	color: #e10032;
+	font-family: 'yakultregular', Impact, Helvetica, Arial, sans-serif;
+	text-align: center;
+}
+#breakfast-recipe #content .primary h2, #breakfast-nutrients #content .primary h2 {
+	color: #e10032;
+	font-family: 'yakultregular', Impact, Helvetica, Arial, sans-serif;
+	font-size: 2em;
+	padding-bottom: 0;
+	text-transform: none;
+}
+.article .section h3, .aside .section h3 {
+	color: #a2a2a2;
+	font-family: 'GillSansRegular', Helvetica, Arial, sans-serif;
+	font-size: 0.9em;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+h4 {
+	font-size: 0.8em;
+	font-weight: bold;
+	padding: 0.6em 0 0.5em 0;
+}
+
+.article .article-heading--lg {
+  color: #fff;
+  font-size: 1.7em;
+  line-height: 38px;
+}
+
+.article .article-heading--md {
+  color: #fff;
+  font-size: 1.3em;
+  padding-top: 26px;
+  padding-bottom: 20px;
+}
+
+/*.level-3 .article h4, .level-5 .article h4 {
+	padding: 1.5em 0 0em 0.4em;
+}*/
+
+.level-3 .article .form-response h4, .level-5 .article .form-response h4 {
+	padding: .8em 0 0 0;
+}
+
+.accordion h4 {
+	padding-left: 1.3em;
+}
+
+h4 a {
+	color: #777777;
+}
+/* TOOLTIPS */
+.tooltip .section h3 {
+	color: #e10032;
+	font-family: 'GillSansRegular', Helvetica, Arial, sans-serif;
+	font-size: 1em;
+	font-weight: normal;
+	padding: 0 0 0.6em 0;
+	text-transform: uppercase;
+}
+.article #security-header {
+	max-width:500px;
+	margin:0 auto;
+	text-align: center;
+}
+.article #security-header h2.yakult-font {
+	font-size: 40px;
+}
+.article #security-header p.yakult-font {
+	font-size: 22px;
+}
+
+/* 6. PARAGRAPHS
+===============================================================================================*/
+p, blockquote, address, legend {
+	font-size: 0.8em;
+	font-style: normal;
+	padding: 0.4em 0;
+	line-height: 1.4em;
+}
+blockquote {
+	font-size: 1em;
+	font-style: italic;
+	font-weight: bold;
+	padding: 0.2em 0;
+	line-height: 1.4em;
+}
+
+.level-3 .article blockquote, .level-5 .article blockquote {
+	font-weight: normal;
+	line-height: 1.4em;
+	font-size: 0.8em;
+	padding-left: 0.5em;
+}
+
+#category-select p {
+	color: #a6a6a6;
+	font-family: 'FuturaMdMedium', Helvetica, Arial, sans-serif;
+	padding: 1em 0;
+	text-transform: uppercase;
+}
+.level-3 .primary blockquote, .level-3 .primary cite, .level-5 .primary blockquote, .level-5 .primary cite {
+	color: #e10032;
+	font-family: 'yakultregular', Impact, Helvetica, Arial, sans-serif;
+	font-weight: normal;
+	font-style: normal;
+}
+.level-3 .primary blockquote, .level-5 .primary blockquote {
+	font-size: 1.8em;
+	line-height: 1em;
+}
+.level-3 .primary cite, .level-5 .primary cite {
+	font-size: 1.2em;
+	line-height: 1em;
+}
+.level-3 .primary cite span.grey, .level-5 .primary cite span.grey {
+	color: #666666;
+	font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
+	font-size: 0.8em;
+}
+.level-3 .box .section p.nobreak, .level-5 .box .section p.nobreak {
+	padding: 0 0 0.1em .5em;
+}
+
+#contact-us.level-3 .box .section p {
+/*	padding: 0 0 0.4em .9em;*/
+	font-weight: bold;
+}
+
+.search-keywords {
+	color: #e10032;
+	font-family: 'GillSansRegular', Helvetica, Arial, sans-serif;
+	font-size: 1.4em;
+}
+
+/* 7. UNORDERED LISTS
+===============================================================================================*/
+#category-select ul li {
+	font-family: 'GillSansRegular', Helvetica, Arial, sans-serif;
+	font-size: 0.75em;
+}
+.results ol li {
+	border-top: 1px solid #f1e7df;
+	overflow:auto;
+	padding: 0.4em 0;
+}
+.bullet-list {
+	font-size: 0.8em;
+	font-style: normal;
+	line-height: 1.4em;
+	list-style-type: disc;
+	padding: 0.4em 0 0.4em 1.2em;
+}
+
+/* 8. ORDERED LISTS
+===============================================================================================*/
+
+ol.survey-dl-terms {
+	font-size: 0.8em;
+    font-style: normal;
+    line-height: 1.4em;
+    padding: 0.4em 0 0 1em;
+	list-style:decimal outside none;
+}
+ol.world-comp {
+	font-size: 0.8em;
+    font-style: normal;
+    line-height: 1.4em;
+    padding: 0.4em 0 0 2em;
+	list-style:decimal outside none;
+}
+.numbered-list {
+	font-size: 0.8em;
+	font-style: normal;
+	line-height: 1.4em;
+	list-style-type: decimal;
+	padding: 0.4em 0 0.4em 1.2em;
+}
+.numbered-list li {
+	padding-bottom: 0.4em;
+}
+/* BRIGHTER BREAKFAST */
+#good-food-recipe #content .results ol, #breakfast-recipe-library #content .results ol, #nutritional-information #content .results ol {
+	padding-top:0;
+}
+#good-food-recipe #content .results ol lie:first-child, #breakfast-recipe-library #content .results ol li:first-child, #nutritional-information #content .results ol li:first-child {
+	border-top: none;
+	overflow:auto;
+}
+
+/* 9. BUTTONS
+===============================================================================================*/
+.button {
+	font-family: 'GillSansRegular', Helvetica, Arial, sans-serif;
+	font-size: 0.95em;
+}
+
+/* 10. BUTTONS
+===============================================================================================*/
+
+div.form-response .form-error {
+	color: #E10032;
+}
+
+div.form-response h4.form-success {
+	background-color: #5e2;
+	padding: 3px;
+}
+
+div.form-response ul {
+	padding-top: 10px;
+}
+
+div.form-response ul li {
+	padding-top: 5px;
+	color: #E10032;
+	font-size: 0.8em;
+}
+p#win-holiday {
+	text-align:center;
+	padding: 2em 0;
+}
