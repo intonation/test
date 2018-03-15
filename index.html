@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Yakult | Celebrate the Science of You</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/flexslider.css" rel="stylesheet" type="text/css" />
+    <link href="css/prettyPhoto.css" rel="stylesheet" type="text/css" />
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/owl.carousel.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+
+    <!-- FONTS -->
+
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="css/type.css" rel="stylesheet" type="text/css">
+
+    <!-- SCRIPTS -->
+    <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <!--[if IE]><html class="ie" lang="en"> <![endif]-->
+
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/jquery.prettyPhoto.js" type="text/javascript"></script>
+    <script src="js/jquery.nicescroll.min.js" type="text/javascript"></script>
+    <script src="js/superfish.min.js" type="text/javascript"></script>
+    <script src="js/jquery.flexslider-min.js" type="text/javascript"></script>
+    <script src="js/owl.carousel.js" type="text/javascript"></script>
+    <script src="js/animate.js" type="text/javascript"></script>
+    <script src="js/jquery.BlackAndWhite.js"></script>
+    <script src="js/myscript.js" type="text/javascript"></script>
+    <script>
+        //PrettyPhoto
+        jQuery(document).ready(function() {
+            $("a[rel^='prettyPhoto']").prettyPhoto();
+        });
+
+        //BlackAndWhite
+        $(window).load(function() {
+            $('.client_img').BlackAndWhite({
+                hoverEffect: true, // default true
+                // set the path to BnWWorker.js for a superfast implementation
+                webworkerPath: false,
+                // for the images with a fluid width and height 
+                responsive: true,
+                // to invert the hover effect
+                invertHoverEffect: false,
+                // this option works only on the modern browsers ( on IE lower than 9 it remains always 1)
+                intensity: 1,
+                speed: { //this property could also be just speed: value for both fadeIn and fadeOut
+                    fadeIn: 300, // 200ms for fadeIn animations
+                    fadeOut: 300 // 800ms for fadeOut animations
+                },
+                onImageReady: function(img) {
+                    // this callback gets executed anytime an image is converted
+                }
+            });
+        });
+
+    </script>
+
+    <!-- Animate code 1 -->
+
+    <style>
+        #animation_container {
+            position: absolute;
+            margin: auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .iwrapper {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            background: #ccc0
+        }
+
+        .h_iframe {
+            position: relative;
+        }
+
+        .h_iframe .ratio {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .h_iframe iframe {
+            position: absolute;
+            top: 135px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+    <script src="js/CelebrateAnimate.js"></script>
+    <script>
+        var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+
+        function init() {
+            canvas = document.getElementById("canvas");
+            anim_container = document.getElementById("animation_container");
+            dom_overlay_container = document.getElementById("dom_overlay_container");
+            var comp = AdobeAn.getComposition("15F75619B5CE45A0942E87F1F52E9C16");
+            var lib = comp.getLibrary();
+            handleComplete({}, comp);
+        }
+
+        function handleComplete(evt, comp) {
+            //This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+            var lib = comp.getLibrary();
+            var ss = comp.getSpriteSheet();
+            exportRoot = new lib.CelebrateAnimate();
+            stage = new lib.Stage(canvas);
+            //Registers the "tick" event listener.
+            fnStartAnimation = function() {
+                stage.addChild(exportRoot);
+                createjs.Ticker.setFPS(lib.properties.fps);
+                createjs.Ticker.addEventListener("tick", stage);
+            }
+            //Code to support hidpi screens and responsive scaling.
+            function makeResponsive(isResp, respDim, isScale, scaleType) {
+                var lastW, lastH, lastS = 1;
+                window.addEventListener('resize', resizeCanvas);
+                resizeCanvas();
+
+                function resizeCanvas() {
+                    var w = lib.properties.width,
+                        h = lib.properties.height;
+                    var iw = window.innerWidth,
+                        ih = window.innerHeight;
+                    var pRatio = window.devicePixelRatio || 1,
+                        xRatio = iw / w,
+                        yRatio = ih / h,
+                        sRatio = 1;
+                    if (isResp) {
+                        if ((respDim == 'width' && lastW == iw) || (respDim == 'height' && lastH == ih)) {
+                            sRatio = lastS;
+                        } else if (!isScale) {
+                            if (iw < w || ih < h)
+                                sRatio = Math.min(xRatio, yRatio);
+                        } else if (scaleType == 1) {
+                            sRatio = Math.min(xRatio, yRatio);
+                        } else if (scaleType == 2) {
+                            sRatio = Math.max(xRatio, yRatio);
+                        }
+                    }
+                    canvas.width = w * pRatio * sRatio;
+                    canvas.height = h * pRatio * sRatio;
+                    canvas.style.width = dom_overlay_container.style.width = anim_container.style.width = w * sRatio + 'px';
+                    canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h * sRatio + 'px';
+                    stage.scaleX = pRatio * sRatio;
+                    stage.scaleY = pRatio * sRatio;
+                    lastW = iw;
+                    lastH = ih;
+                    lastS = sRatio;
+                    stage.tickOnUpdate = false;
+                    stage.update();
+                    stage.tickOnUpdate = true;
+                }
+            }
+            makeResponsive(true, 'both', true, 1);
+            AdobeAn.compositionLoaded(lib.properties.id);
+            fnStartAnimation();
+        }
+
+    </script>
+
+
+</head>
+
+<body onload="init();" style="margin:0px;">
+
+    <!-- PRELOADER -->
+    <img id="preloader" src="images/preloader.gif" alt="" />
+    <!-- //PRELOADER -->
+    <div class="preloader_hide">
+
+        <!-- PAGE -->
+        <div id="page">
+
+            <!-- HEADER -->
+            <header>
+
+                <!-- MENU BLOCK -->
+                <div class="menu_block">
+
+                    <!-- CONTAINER -->
+                    <div class="container clearfix">
+
+                        <!-- LOGO -->
+                        <div class="logo pull-left">
+                            <img src="images/yakult.png" class="logo" alt="Yakult">
+                        </div>
+                        <!-- //LOGO -->
+
+                        <!-- SEARCH FORM -->
+                        <div id="search-form" class="pull-right">
+                            <form method="get" action="#">
+                                <input type="text" name="Search" value="Search" onFocus="if (this.value == 'Search') this.value = '';" onBlur="if (this.value == '') this.value = 'Search';" />
+                            </form>
+                        </div>
+                        <!-- SEARCH FORM -->
+
+                        <!-- MENU -->
+                        <div class="pull-right">
+                            <nav class="navmenu center">
+                                <ul>
+
+                                    <li class="scroll_btn"><a href="#about">About Yakult</a></li>
+                                    <li class="scroll_btn"><a href="#projects">The Digestive System</a></li>
+                                    <li class="scroll_btn"><a href="#team">Healthy Living</a></li>
+                                    <li class="scroll_btn last"><a href="#contacts">Your Questions</a></li>
+                                    <li class="first active scroll_btn"><a href="#home">Redeem</a></li>
+                                    <!--
+								<li class="sub-menu">
+									<a href="javascript:void(0);" >Pages</a>
+									<ul>
+										<li><a href="blog.html" >Blog</a></li>
+										<li><a href="blog-post.html" >Blog Post</a></li>
+										<li><a href="portfolio-post.html" >Portfolio Single Work</a></li>
+									</ul>
+								</li>
+-->
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- //MENU -->
+                    </div>
+                    <!-- //MENU BLOCK -->
+                </div>
+                <!-- //CONTAINER -->
+            </header>
+            <!-- //HEADER -->
+
+
+            <!-- HOME -->
+            <section id="home" class="padbot0">
+
+                <!-- TOP SLIDER -->
+                <div class="flexslider top_slider">
+                    <ul class="slides">
+                        <li class="slide1">
+                            <div id="animation_container" style="background-color:rgba(237, 223, 213, 1.00); width:1024px; height:637px">
+                                <canvas id="canvas" width="1024" height="637" style="position: absolute; display: block; background-color:rgba(237, 223, 213, 1.00);"></canvas>
+                                <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1024px; height:637px; position: absolute; left: 0px; top: 0px; display: block;">
+                                </div>
+                            </div>
+                            <a class="slide_btn FromRight" href="javascript:void(0);">Read More</a>
+                        </li>
+                        <li class="slide2">
+                            <div class="iwrapper">
+                                <div class="h_iframe">
+                                    <!-- a transparent image is preferable -->
+                                    <img class="ratio" src="images/16x9.png">
+                                    <iframe src="Yakult.html" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div id='_preload_div_' style='position:absolute; top:0; left:0; display: inline-block; height:400px; width: 550px; text-align: center;'> <span style='display: inline-block; height: 100%; vertical-align: middle;'></span> </div>
+                            <a class="slide_btn FromRight" href="javascript:void(0);">Read More</a>
+                        </li>
+                        <li class="slide3">
+                           <img src ="images/yakultp.png" style="width: 70%; margin: auto; margin-top: 11%;" id="yakp">
+                            <a class="slide_btn FromRight" href="javascript:void(0);">Read More</a>
+
+                            <!-- VIDEO BACKGROUND -->
+                            <a id="P2" class="player" data-property="{videoURL:'tDvBwPzJ7dY',containment:'.top_slider .slide3',autoPlay:true, mute:true, startAt:0, opacity:1}"></a>
+                            <!-- //VIDEO BACKGROUND -->
+                        </li>
+                    </ul>
+                </div>
+                <div id="carousel">
+                    <ul class="slides">
+                        <li><img src="images/slider/slide1_bg.jpg" alt="" /></li>
+                        <li><img src="images/slider/slide2_bg.jpg" alt="" /></li>
+                        <li><img src="images/slider/slide3_bg.jpg" alt="" /></li>
+                    </ul>
+                </div>
+                <!-- //TOP SLIDER -->
+            </section>
+            <!-- //HOME -->
+
+
+            <!-- PROJECTS -->
+            <section id="projects" class="padbot20">
+
+                <!-- CONTAINER -->
+                <div class="container">
+                    <h2><b>Featured</b> Activities</h2>
+                </div>
+                <!-- //CONTAINER -->
+
+
+                <div class="projects-wrapper" data-appear-top-offset="-200" data-animated="fadeInUp">
+                    <!-- PROJECTS SLIDER -->
+                    <div class="owl-demo owl-carousel projects_slider">
+
+                        <!-- work1 -->
+                        <div class="item">
+                            <div class="work_item">
+                                <div class="work_img">
+                                    <img src="images/works/1.jpg" alt="" />
+                                    <a class="zoom" href="images/works/1.jpg" rel="prettyPhoto[portfolio1]"></a>
+                                </div>
+                                <div class="work_description">
+                                    <div class="work_descr_cont">
+                                        <a href="portfolio-post.html">Running</a>
+                                        <span>Arond the track</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //work1 -->
+
+                        <!-- work2 -->
+                        <div class="item">
+                            <div class="work_item">
+                                <div class="work_img">
+                                    <img src="images/works/2.jpg" alt="" />
+                                    <a class="zoom" href="images/works/2.jpg" rel="prettyPhoto[portfolio1]"></a>
+                                </div>
+                                <div class="work_description">
+                                    <div class="work_descr_cont">
+                                        <a href="portfolio-post.html">Running</a>
+                                        <span>Around the track</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //work2 -->
+
+                        <!-- work3 -->
+                        <div class="item">
+                            <div class="work_item">
+                                <div class="work_img">
+                                    <img src="images/works/3.jpg" alt="" />
+                                    <a class="zoom" href="images/works/3.jpg" rel="prettyPhoto[portfolio1]"></a>
+                                </div>
+                                <div class="work_description">
+                                    <div class="work_descr_cont">
+                                        <a href="portfolio-post.html">Running</a>
+                                        <span>Around the track</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //work3 -->
+
+                        <!-- work4 -->
+                        <div class="item">
+                            <div class="work_item">
+                                <div class="work_img">
+                                    <img src="images/works/4.jpg" alt="" />
+                                    <a class="zoom" href="images/works/4.jpg" rel="prettyPhoto[portfolio1]"></a>
+                                </div>
+                                <div class="work_description">
+                                    <div class="work_descr_cont">
+                                        <a href="portfolio-post.html">Running</a>
+                                        <span>Around the track</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //work4 -->
+
+                        <!-- work5 -->
+                        <div class="item">
+                            <div class="work_item">
+                                <div class="work_img">
+                                    <img src="images/works/5.jpg" alt="" />
+                                    <a class="zoom" href="images/works/5.jpg" rel="prettyPhoto[portfolio1]"></a>
+                                </div>
+                                <div class="work_description">
+                                    <div class="work_descr_cont">
+                                        <a href="portfolio-post.html">Running</a>
+                                        <span>Around the track</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //work5 -->
+
+                        <!-- work6 -->
+                        <div class="item">
+                            <div class="work_item">
+                                <div class="work_img">
+                                    <img src="images/works/6.jpg" alt="" />
+                                    <a class="zoom" href="images/works/6.jpg" rel="prettyPhoto[portfolio1]"></a>
+                                </div>
+                                <div class="work_description">
+                                    <div class="work_descr_cont">
+                                        <a href="portfolio-post.html">Running</a>
+                                        <span>Around the track</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //work6 -->
+
+                        <!-- work7 -->
+                        <div class="item">
+                            <div class="work_item">
+                                <div class="work_img">
+                                    <img src="images/works/7.jpg" alt="" />
+                                    <a class="zoom" href="images/works/7.jpg" rel="prettyPhoto[portfolio1]"></a>
+                                </div>
+                                <div class="work_description">
+                                    <div class="work_descr_cont">
+                                        <a href="portfolio-post.html">Running</a>
+                                        <span>Around the track</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //work7 -->
+                    </div>
+                    <!-- //PROJECTS SLIDER -->
+                </div>
+
+
+
+            </section>
+            <!-- //PROJECTS -->
+
+
+            <!-- TEAM -->
+            <section id="team">
+
+                <!-- CONTAINER -->
+                <div class="container">
+                    <h2><b>Your Body</b></h2>
+
+                    <!-- ROW -->
+                    <div class="row" data-appear-top-offset="-200" data-animated="fadeInUp">
+
+                        <!-- TEAM SLIDER -->
+                        <div class="owl-demo owl-carousel team_slider">
+
+                            <!-- crewman1 -->
+                            <div class="item">
+                                <div class="crewman_item">
+                                    <div class="crewman">
+                                        <img src="images/team/1.jpg" alt="" />
+                                    </div>
+                                    <div class="crewman_descr center">
+                                        <div class="crewman_descr_cont">
+                                            <p>Arms</p>
+                                            <span>Two of</span>
+                                        </div>
+                                    </div>
+                                    <!--
+								<div class="crewman_social">
+									<a href="javascript:void(0);" ><i class="fa fa-twitter"></i></a>
+									<a href="javascript:void(0);" ><i class="fa fa-facebook-square"></i></a>
+								</div>
+-->
+                                </div>
+                            </div>
+                            <!-- crewman1 -->
+
+                            <!-- crewman2 -->
+                            <div class="item">
+                                <div class="crewman_item">
+                                    <div class="crewman">
+                                        <img src="images/team/2.jpg" alt="" />
+                                    </div>
+                                    <div class="crewman_descr center">
+                                        <div class="crewman_descr_cont">
+                                            <p>Legs</p>
+                                            <span>Two of</span>
+                                        </div>
+                                    </div>
+                                    <!--
+								<div class="crewman_social">
+									<a href="javascript:void(0);" ><i class="fa fa-google-plus"></i></a>
+									<a href="javascript:void(0);" ><i class="fa fa-twitter"></i></a>
+									<a href="javascript:void(0);" ><i class="fa fa-facebook-square"></i></a>
+								</div>
+-->
+                                </div>
+                            </div>
+                            <!-- crewman1 -->
+
+                            <!-- crewman3 -->
+                            <div class="item">
+                                <div class="crewman_item">
+                                    <div class="crewman">
+                                        <img src="images/team/3.jpg" alt="" />
+                                    </div>
+                                    <div class="crewman_descr center">
+                                        <div class="crewman_descr_cont">
+                                            <p>Heart</p>
+                                            <span>One of</span>
+                                        </div>
+                                    </div>
+                                    <!--
+								<div class="crewman_social">
+									<a href="javascript:void(0);" ><i class="fa fa-twitter"></i></a>
+									<a href="javascript:void(0);" ><i class="fa fa-facebook-square"></i></a>
+								</div>
+-->
+                                </div>
+                            </div>
+                            <!-- crewman3 -->
+
+                            <!-- crewman4 -->
+                            <div class="item">
+                                <div class="crewman_item">
+                                    <div class="crewman">
+                                        <img src="images/team/4.jpg" alt="" />
+                                    </div>
+                                    <div class="crewman_descr center">
+                                        <div class="crewman_descr_cont">
+                                            <p>Nigel</p>
+                                            <span>One of</span>
+                                        </div>
+                                    </div>
+<!--
+                                    <div class="crewman_social">
+                                        <a href="javascript:void(0);"><i class="fa fa-twitter"></i></a>
+                                        <a href="javascript:void(0);"><i class="fa fa-facebook-square"></i></a>
+                                    </div>
+-->
+                                </div>
+                            </div>
+                            <!-- crewman4 -->
+
+                            <!-- crewman5 -->
+                            <div class="item">
+                                <div class="crewman_item">
+                                    <div class="crewman">
+                                        <img src="images/team/5.jpg" alt="" />
+                                    </div>
+                                    <div class="crewman_descr center">
+                                        <div class="crewman_descr_cont">
+                                            <p>Keith</p>
+                                            <span>Susan</span>
+                                        </div>
+                                    </div>
+<!--
+                                    <div class="crewman_social">
+                                        <a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a>
+                                        <a href="javascript:void(0);"><i class="fa fa-twitter"></i></a>
+                                        <a href="javascript:void(0);"><i class="fa fa-facebook-square"></i></a>
+                                    </div>
+-->
+                                </div>
+                            </div>
+                            <!-- crewman5 -->
+
+                            <!-- crewman6 -->
+                            <div class="item">
+                                <div class="crewman_item">
+                                    <div class="crewman">
+                                        <img src="images/team/6.jpg" alt="" />
+                                    </div>
+                                    <div class="crewman_descr center">
+                                        <div class="crewman_descr_cont">
+                                            <p>Cecil</p>
+                                            <span>Designated</span>
+                                        </div>
+                                    </div>
+<!--
+                                    <div class="crewman_social">
+                                        <a href="javascript:void(0);"><i class="fa fa-twitter"></i></a>
+                                        <a href="javascript:void(0);"><i class="fa fa-facebook-square"></i></a>
+                                    </div>
+-->
+                                </div>
+                            </div>
+                            <!-- crewman6 -->
+
+                            <!-- crewman7 -->
+                            <div class="item">
+                                <div class="crewman_item">
+                                    <div class="crewman">
+                                        <img src="images/team/7.jpg" alt="" />
+                                    </div>
+                                    <div class="crewman_descr center">
+                                        <div class="crewman_descr_cont">
+                                            <p>Joseph</p>
+                                            <span>Yakult</span>
+                                        </div>
+                                    </div>
+<!--
+                                    <div class="crewman_social">
+                                        <a href="javascript:void(0);"><i class="fa fa-twitter"></i></a>
+                                        <a href="javascript:void(0);"><i class="fa fa-facebook-square"></i></a>
+                                    </div>
+-->
+                                </div>
+                            </div>
+                            <!-- crewman7 -->
+
+                            <!-- crewman8 -->
+                            <div class="item">
+                                <div class="crewman_item">
+                                    <div class="crewman">
+                                        <img src="images/team/8.jpg" alt="" />
+                                    </div>
+                                    <div class="crewman_descr center">
+                                        <div class="crewman_descr_cont">
+                                            <p>Jackie & Jane</p>
+                                            <span>Excercise</span>
+                                        </div>
+                                    </div>
+<!--
+                                    <div class="crewman_social">
+                                        <a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a>
+                                        <a href="javascript:void(0);"><i class="fa fa-twitter"></i></a>
+                                        <a href="javascript:void(0);"><i class="fa fa-facebook-square"></i></a>
+                                    </div>
+-->
+                                </div>
+                            </div>
+                            <!-- crewman8 -->
+                        </div>
+                        <!-- TEAM SLIDER -->
+                    </div>
+                    <!-- //ROW -->
+                </div>
+                <!-- //CONTAINER -->
+            </section>
+            <!-- //TEAM -->
+
+        </div>
+        <!-- //PAGE -->
+
+        <!-- CONTACTS -->
+        <section id="contacts">
+        </section>
+        <!-- //CONTACTS -->
+
+        <!-- FOOTER -->
+        <footer>
+            <!-- CONTAINER -->
+            <div class="container">
+
+                <!-- ROW -->
+                <div class="row" data-appear-top-offset="-200" data-animated="fadeInUp">
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 padbot30">
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 padbot30 foot_about_block">
+                        <ul class="social">
+                            <li><a href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="javascript:void(0);"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="javascript:void(0);"><i class="fa fa-pinterest-square"></i></a></li>
+                            <li><a href="javascript:void(0);"><i class="map_show fa fa-map-marker"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="respond_clear"></div>
+
+                    <div class="col-lg-4 col-md-4 padbot30">
+                        <h4><b>Contacts</b> Us</h4>
+
+                        <!-- CONTACT FORM -->
+                        <div class="span9 contact_form">
+
+                        </div>
+                        <!-- //CONTACT FORM -->
+                    </div>
+                </div>
+                <!-- //ROW -->
+                <div class="row copyright">
+                    <div class="col-lg-12 text-center">
+
+                    </div>
+
+                </div>
+                <!-- //ROW -->
+            </div>
+            <!-- //CONTAINER -->
+        </footer>
+        <!-- //FOOTER -->
+
+
+        <!-- MAP -->
+        <div id="map">
+            <a class="map_hide" href="javascript:void(0);"><i class="fa fa-angle-right"></i><i class="fa fa-angle-left"></i></a>
+            <iframe src="http://maps.google.com/maps?f=q&amp;give%20a%20hand=s_q&amp;hl=en&amp;geocode=&amp;q=london&amp;sll=37.0625,-95.677068&amp;sspn=42.631141,90.263672&amp;ie=UTF8&amp;hq=&amp;hnear=London,+United+Kingdom&amp;ll=51.500141,-0.126257&amp;spn=0.026448,0.039396&amp;z=14&amp;output=embed"></iframe>
+        </div>
+        <!-- //MAP -->
+
+    </div>
+</body>
+
+</html>
